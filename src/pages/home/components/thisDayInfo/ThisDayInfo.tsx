@@ -1,6 +1,7 @@
 import cls from "./ThisDayInfo.module.scss";
 import cloud from "../../../../assets/images/Cloud image.png";
 import ThisDayItem from './ThisDayItem';
+import { Weather } from "../../../../store/types/types";
 
 export interface Item {
   icon_id: string;
@@ -8,18 +9,22 @@ export interface Item {
   value: string
 }
 
-const ThisDayInfo = () => {
+interface Props {
+  weather: Weather
+}
+
+const ThisDayInfo = ({weather}: Props) => {
 
   const items = [
     {
       icon_id: "temp",
       name: "Температура",
-      value: "20° - ощущается как 17°"
+      value: `${Math.floor(weather.main.temp)}° - ощущается как ${Math.floor(weather.main.feels_like)}°`
     },
     {
       icon_id: "pressure",
       name: "Давление",
-      value: "765 мм ртутного столба - нормальное"
+      value: `${weather.main.pressure} мм ртутного столба - нормальное`
     },
     {
       icon_id: "precipitation",
@@ -29,7 +34,7 @@ const ThisDayInfo = () => {
     {
       icon_id: "wind",
       name: "Ветер",
-      value: "3 м/с юго-запад - легкий ветер"
+      value: `${weather.wind.speed} м/с юго-запад - легкий ветер`
     },
   ]
 
@@ -38,7 +43,7 @@ const ThisDayInfo = () => {
       <div className={cls.this_day_info_items}>
         {
           items.map((item: Item) => (
-            <ThisDayItem key={item.icon_id} item={item}/>
+            <ThisDayItem weather={weather} key={item.icon_id} item={item}/>
           ))
         }
       </div>

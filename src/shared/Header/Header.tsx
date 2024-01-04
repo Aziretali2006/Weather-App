@@ -1,18 +1,17 @@
-import cls from "./Header.module.scss";
 import GlobalSvgSelector from '../../assets/icons/global/GlobalSvgSelector';
 import Select, { StylesConfig } from "react-select";
-import React from "react";
 import { useTheme } from "../../hooks/useTheme";
-import { changeCssRootVariables } from "../../model/ChangeCssRootVarianles";
 import { Theme } from "../../context/ThemeContext";
+
+import cls from "./Header.module.scss";
 
 const Header = () => {
   const themeObj = useTheme();
 
   const options = [
-    { value: 'city-1', label: 'Санкт-Петерберг' },
+    { value: 'city-1', label: 'Бишкек' },
     { value: 'city-2', label: 'Москва' },
-    { value: 'city-3', label: 'Новгород' }
+    { value: 'city-3', label: 'Париж' }
   ];
 
   const colourStyles: StylesConfig = {
