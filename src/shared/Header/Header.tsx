@@ -3,6 +3,8 @@ import GlobalSvgSelector from '../../assets/icons/global/GlobalSvgSelector';
 import Select, { StylesConfig } from "react-select";
 import React from "react";
 import { useTheme } from "../../hooks/useTheme";
+import { changeCssRootVariables } from "../../model/ChangeCssRootVarianles";
+import { Theme } from "../../context/ThemeContext";
 
 const Header = () => {
   const themeObj = useTheme();
@@ -16,7 +18,7 @@ const Header = () => {
   const colourStyles: StylesConfig = {
     control: (styles) => ({
       ...styles, 
-      backgroundColor: themeObj.theme ? "#4f4f4f" : "rgba(71, 147 , 255, 0.2)",
+      backgroundColor: themeObj.theme === Theme.DARK ? "#4f4f4f" : "rgba(71, 147 , 255, 0.2)",
       width: "194px",
       height: "37px",
       border: "none",
@@ -25,32 +27,13 @@ const Header = () => {
     }),
     singleValue: (styles) => ({
       ...styles,
-      color: themeObj.theme ? "#fff" : "#000"
+      color: themeObj.theme === Theme.DARK ? "#fff" : "#000"
     })
   }
 
   const changeTheme = () => {
-    themeObj.changeTheme(themeObj.theme === "light" ? "dark" : "light");
+    themeObj.changeTheme(themeObj.theme === Theme.LIGHT ? Theme.DARK : Theme.LIGHT);
   }
-
-  React.useEffect(() => {
-    const root = document.querySelector(":root") as HTMLElement;
-
-    const components = [
-      "body-background",
-      "components-background",
-      "card-background",
-      "card-shadow",
-      "text-color",
-    ]
-
-    components.forEach((components) => {
-      root.style.setProperty(
-        `--${components}-default`,
-        `var(--${components}-${themeObj.theme})`
-      )
-    })
-  }, [themeObj.theme])
 
   return (
     <header className={cls.header}>
